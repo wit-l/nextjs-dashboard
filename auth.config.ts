@@ -8,7 +8,7 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl, method } }) {
       const isLoggedIn = !!auth?.user;
-      console.log(`auth:${JSON.stringify(auth)}, method:${method}`);
+      // console.log(`auth:${JSON.stringify(auth)}, method:${method}`);
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       if (isOnDashboard) {
         // When access route '/dashboard'
