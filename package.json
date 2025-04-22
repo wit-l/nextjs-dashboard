@@ -24,16 +24,17 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/bcrypt": "^5.0.2",
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
-    "@eslint/eslintrc": "^3"
+    "eslint-plugin-react-compiler": "19.0.0-beta-e993439-20250405",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
@@ -43,5 +44,6 @@
     "onlyBuiltDependencies": [
       "bcrypt"
     ]
-  }
+  },
+  "packageManager": "pnpm@9.15.9"
 }

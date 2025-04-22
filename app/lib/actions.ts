@@ -134,5 +134,6 @@ export async function authenticate(
           return "Something went wrong.";
       }
     }
+    throw error;
   }
 }
