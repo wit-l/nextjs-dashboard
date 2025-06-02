@@ -41,7 +41,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
     amount: formData.get("amount"),
     status: formData.get("status"),
   });
-  console.log("*****validatedFields:", validatedFields);
+  // console.log("----\nvalidatedFields:", validatedFields);
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
@@ -112,7 +112,7 @@ export async function updateInvoice(
   redirect("/dashboard/invoices");
 }
 
-export async function delteInvoice(id: string) {
+export async function deleteInvoice(id: string) {
   // throw new Error("Failed to Delete Invoice");
 
   await sql`DELETE FROM invoices WHERE id = ${id}`;
@@ -124,16 +124,22 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
+    // console.log("------\n", formData);
     await signIn("credentials", formData);
   } catch (error) {
     if (error instanceof AuthError) {
+      // console.log(`---------\ncredential failed error:${error}`);
       switch (error.type) {
         case "CredentialsSignin":
+          // 密码错误
           return "Invalid credentials";
         default:
           return "Something went wrong.";
       }
     }
+    // 非AuthError类型错误则抛出
+    // Error: NEXT_REDIRECT
+    // console.log(`---------\n throw error:${error}`);
     throw error;
   }
 }

@@ -6,9 +6,30 @@ export const authConfig = {
     signIn: "/login",
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl, method } }) {
+    // redirect({ url, baseUrl }) {
+    //   console.log(`url:${url}, baseUrl:${baseUrl}`);
+    //   return url;
+    // },
+    authorized(params) {
+      // console.log("params:", params); // detail info
+      //{
+      //   "request": {
+      //     "sourcePage": "/middleware",
+      //     "method", "nextUrl", "url",...
+      //   },
+      //   "auth": {
+      //     "user": {
+      //       "name": "User",
+      //       "email": "user@nextmail.com"
+      //     },
+      //     "expires": "2025-05-24T17:08:04.067Z"
+      //   }
+      // }
+      // console.log("params:", JSON.stringify(params, null, 2));
+      const { auth, request } = params;
+      const { nextUrl } = request;
       const isLoggedIn = !!auth?.user;
-      // console.log(`auth:${JSON.stringify(auth)}, method:${method}`);
+      // console.log(`auth:${JSON.stringify(auth)}, method:${request.method}`);
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       if (isOnDashboard) {
         // When access route '/dashboard'

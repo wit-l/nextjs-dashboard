@@ -22,7 +22,14 @@ export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
+      credentials: {
+        username: { label: "Username" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials) {
+        // console.log(`credentials:${JSON.stringify(credentials)}`);
+        // credentials:{"email":"user@nextmail.com","password":"123456","callbackUrl":"/dashboard"}
+
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
@@ -30,9 +37,15 @@ export const { auth, signIn, signOut } = NextAuth({
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
+          // return user;
+          // console.log(
+          //   `parsedCredentials.data:${JSON.stringify(parsedCredentials.data, null, 2)}`,
+          // );
+          // console.log("user:", user);
           if (!user) return null;
           const passwordsMatch = await bcrypt.compare(password, user.password);
           if (passwordsMatch) {
+            // This user will be used to authorize as user property of params.auth in callbacks.authorized
             return user;
           }
         }
