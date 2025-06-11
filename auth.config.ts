@@ -31,6 +31,7 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       // console.log(`auth:${JSON.stringify(auth)}, method:${request.method}`);
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
+      const isOnLogin = nextUrl.pathname.startsWith("/login");
       if (isOnDashboard) {
         // When access route '/dashboard'
         if (isLoggedIn) {
@@ -38,7 +39,8 @@ export const authConfig = {
         }
         // If not logged in, redirect to login page
         return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
+      } else if (isLoggedIn && isOnLogin) {
+        // Only on login page when logged in.(Avoid redirects from other routes)
         // Redirect to "/dashboard" if logged in and not on dashboard
         return NextResponse.redirect(new URL("/dashboard", nextUrl));
       }
